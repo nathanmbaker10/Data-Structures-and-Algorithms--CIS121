@@ -1,0 +1,54 @@
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import org.junit.Test;
+
+public class GraphTest {
+    
+    @Test (expected = IllegalArgumentException.class)
+    public void constructorException() {
+        Graph g = new Graph(0);
+        
+    }
+    
+    @Test (expected = IllegalArgumentException.class)
+    public void hasEdgeAboveException() {
+        Graph g = new Graph(10);
+        g.hasEdge(10, 4);
+        
+    }
+    
+    @Test (expected = IllegalArgumentException.class)
+    public void hasEdgeBelowException() {
+        Graph g = new Graph(10);
+        g.hasEdge(8, 0);
+        
+    }
+    
+    @Test
+    public void graphTest() {
+        Graph g = new Graph(10);
+        g.addEdge(2, 8, 10);
+        g.addEdge(3, 8, 10);
+        g.addEdge(2, 5, 15);
+        
+        assertTrue(g.hasEdge(2, 8));
+        assertTrue(g.hasEdge(3, 8));
+        
+        assertFalse(g.hasEdge(4, 8));
+        
+        Set<Integer> twoSet = new HashSet<Integer>();
+        twoSet.add(5);
+        twoSet.add(8);
+        
+        assertTrue(twoSet.equals(g.outNeighbors(2)));
+        assertEquals(10, g.getWeight(2, 8));
+        assertEquals(10, g.getWeight(3, 8));
+        assertEquals(15, g.getWeight(2, 5));
+    }
+
+}

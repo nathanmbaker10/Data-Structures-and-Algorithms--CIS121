@@ -1,0 +1,11 @@
+import org.junit.Test;
+
+public class GraphTest {
+    
+    @Test (expected = IllegalArgumentException.class)
+    public void constructorException() {
+        Graph g = new Graph(0);
+        
+    }
+
+}

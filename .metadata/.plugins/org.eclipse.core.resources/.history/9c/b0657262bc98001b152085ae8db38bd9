@@ -1,0 +1,93 @@
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Deque;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+import org.junit.*;
+
+
+
+public class ResizingDequeImplTest {
+    
+    @Test(expected = NoSuchElementException.class)
+    public void emptyDeque() {
+        ResizingDeque<Integer> newDeque = new ResizingDequeImpl<Integer>();
+        
+        assertEquals(0, newDeque.size());
+        
+        newDeque.pollFirst();
+    }
+    
+    
+    @Test
+    public void addRemoveFront() {
+        ResizingDeque<Integer> newDeque = new ResizingDequeImpl<Integer>();
+        
+        assertEquals(0, newDeque.size());
+        
+        
+        newDeque.addFirst(1);
+        assertEquals(1, newDeque.size());
+        assertEquals(1, (int) newDeque.peekFirst());
+        assertEquals(1, (int) newDeque.peekLast());
+        assertEquals(1, (int) newDeque.pollFirst());
+        newDeque.addFirst(1);
+        assertEquals(1, (int) newDeque.pollLast());
+        
+        
+    }
+    
+    
+    @Test
+    public void addRemoveFrontBack2() {
+        ResizingDeque<Integer> newDeque = new ResizingDequeImpl<Integer>();
+        
+        assertEquals(0, newDeque.size());
+        
+        
+        newDeque.addFirst(1);
+        newDeque.addLast(2);
+        assertEquals(2, newDeque.size());
+        assertEquals(1, (int) newDeque.peekFirst());
+        assertEquals(2, (int) newDeque.peekLast());
+        assertEquals(1, (int) newDeque.pollFirst());
+        newDeque.addLast(1);
+        assertEquals(2, (int) newDeque.peekFirst());
+        assertEquals(1, (int) newDeque.peekLast());
+        assertEquals(2, (int) newDeque.pollFirst());
+        assertEquals(1, (int) newDeque.pollLast());
+        
+        assertEquals(0, newDeque.size());
+        
+    }
+    
+    
+    @Test
+    public void resizeUpThenDown() {
+        ResizingDeque<Integer> newDeque = new ResizingDequeImpl<Integer>();
+        
+        assertEquals(0, newDeque.size());
+        
+        
+        newDeque.addFirst(1);
+        newDeque.addLast(2);
+        newDeque.addLast(3);
+        assertEquals(3, newDeque.size());
+        assertEquals(1, (int) newDeque.peekFirst());
+        assertEquals(3, (int) newDeque.peekLast());
+        assertEquals(1, (int) newDeque.pollFirst());
+        assertEquals(2, (int) newDeque.peekFirst());
+        assertEquals(3, (int) newDeque.peekLast());
+        assertEquals(2, (int) newDeque.pollFirst());
+        assertEquals(3, (int) newDeque.pollLast());
+        
+        assertEquals(0, newDeque.size());
+        
+    }
+    
+    
+    
+}

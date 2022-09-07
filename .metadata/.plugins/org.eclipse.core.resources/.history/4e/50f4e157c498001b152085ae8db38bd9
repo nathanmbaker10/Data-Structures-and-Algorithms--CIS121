@@ -1,0 +1,40 @@
+import org.junit.Test;
+
+public class GraphTest {
+    
+    @Test (expected = IllegalArgumentException.class)
+    public void constructorException() {
+        Graph g = new Graph(0);
+        
+    }
+    
+    @Test (expected = IllegalArgumentException.class)
+    public void constructorException() {
+        Graph g = new Graph(10);
+        g.hasEdge(10, 4);
+        
+    }
+    
+    @Test (expected = IllegalArgumentException.class)
+    public void constructorException() {
+        Graph g = new Graph(10);
+        g.hasEdge(4, 10);
+        
+    }
+    
+    @Test (expected = IllegalArgumentException.class)
+    public void constructorException() {
+        Graph g = new Graph(10);
+        g.hasEdge(0, 8);
+        
+    }
+    
+    @Test (expected = IllegalArgumentException.class)
+    public void constructorException() {
+        Graph g = new Graph(0);
+        g.hasEdge(8, 0);
+        
+    }
+    
+
+}

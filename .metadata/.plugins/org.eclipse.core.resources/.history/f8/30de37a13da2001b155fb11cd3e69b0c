@@ -1,0 +1,20 @@
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
+import org.junit.Test;
+
+public class TrieMapTest {
+    @Test
+    public void testEmptyTrieMap() {
+        TrieMap<Integer> newMap = new TrieMap<Integer>();
+        
+        assertEquals(0, newMap.size());
+    }
+    
+    @Test
+    public void testSingleElementTrieMap() {
+        TrieMap<Integer> newMap = new TrieMap<Integer>();
+        
+        assertNull(newMap.put("a", 1));
+    }
+}

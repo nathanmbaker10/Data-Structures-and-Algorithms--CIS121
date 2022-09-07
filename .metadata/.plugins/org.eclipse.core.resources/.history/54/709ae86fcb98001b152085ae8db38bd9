@@ -1,0 +1,67 @@
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+final public class MazeSolver {
+    private MazeSolver() {}
+
+    /**
+     * Returns a list of coordinates on the shortest path from {@code src} to {@code tgt}
+     * by executing a breadth-first search on the graph represented by a 2D-array of size m x n.
+     * Please note, you MUST use your ResizingDeque implementation as the BFS queue for this method.
+     * <p>
+     * Input {@code maze} guaranteed to be a non-empty and valid matrix.
+     * Input {@code src} and {@code tgt} are guaranteed to be valid, in-bounds, and not blocked.
+     * <p>
+     * Do NOT modify this method header.
+     *
+     * @param maze the input maze, which is a 2D-array of size m x n
+     * @param src The starting Coordinate of the path on the matrix
+     * @param tgt The target Coordinate of the path on the matrix
+     * @return an empty list if there is no path from {@param src} to {@param tgt}, otherwise an
+     * ordered list of vertices in the shortest path from {@param src} to {@param tgt},
+     * with the first element being {@param src} and the last element being {@param tgt}.
+     * @implSpec This method should run in worst-case O(m x n) time.
+     */
+    public static List<Coordinate> getShortestPath(int[][] maze, Coordinate src, Coordinate tgt) {
+        Map<Coordinate, Coordinate> parentMap = new HashMap<Coordinate, Coordinate>();
+        Set<Coordinate> discoveredSet = new HashSet<Coordinate>();
+        ResizingDeque<Coordinate> Q = new ResizingDequeImpl<Coordinate>();
+        
+        discoveredSet.add(src);
+        Q.addFirst(src);
+        
+        
+        while (Q.size() != 0) {
+            Coordinate currentCoordinate = Q.pollLast();
+            
+            Coordinate leftCoordinate = new Coordinate(currentCoordinate.getX() - 1, currentCoordinate.getY());
+            Coordinate rightCoordinate = new Coordinate(currentCoordinate.getX() + 1, currentCoordinate.getY());
+            Coordinate upCoordinate = new Coordinate(currentCoordinate.getX(), currentCoordinate.getY() + 1);
+            Coordinate downCoordinate = new Coordinate(currentCoordinate.getX(), currentCoordinate.getY() - 1);
+            
+            
+            
+            i
+        }
+        
+        parentMap.put(src, null);
+        
+        
+    }
+    
+    
+    public static boolean validCoord(Coordinate c, int[][] maze) {
+        if(c.getX() < 0 || c.getX() >= maze[0].length) {
+            return false;
+        } else if (c.getY() < 0 || c.getY() >= maze.length) {
+            return false;
+        } else if (maze[c.getY()][c.getX()] == 1) {
+            return false;
+        }
+        
+        return true;
+        
+    }
+}

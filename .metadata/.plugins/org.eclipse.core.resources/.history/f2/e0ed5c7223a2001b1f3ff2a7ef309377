@@ -1,0 +1,108 @@
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Iterator;
+import java.util.Map;
+
+import org.junit.Test;
+
+public class HashMapTest {
+    
+    //Below test is a collision
+    @Test
+    public void testNullandZeroKey() {
+        HashMap<Integer, Integer> newMap = new HashMap<Integer, Integer>();
+        
+        
+        newMap.put(0, 0);
+        newMap.put(null, 1);
+        
+        assertTrue(newMap.containsKey(0));
+        assertTrue(newMap.containsKey(null));
+        
+        
+        assertEquals(0, (int) newMap.get(0));
+        assertEquals(1, (int) newMap.get(null));
+        
+        assertTrue(newMap.containsValue(1));
+        assertTrue(newMap.containsValue(0));
+        
+        
+        
+        Iterator<Map.Entry<Integer, Integer>> newMapIterator = newMap.entryIterator();
+        
+        assertTrue(newMapIterator.hasNext());
+        newMapIterator.next();
+        
+        assertTrue(newMapIterator.hasNext());
+        
+        newMapIterator.next();
+        
+        assertFalse(newMapIterator.hasNext());
+    }
+    
+    
+    @Test
+    public void testRemove() {
+        HashMap<Integer, Integer> newMap = new HashMap<Integer, Integer>();
+        
+        
+        newMap.put(0, 0);
+        
+        
+        assertEquals(0, (int) newMap.remove(0));
+        
+        assertEquals(null, newMap.remove(null));
+        
+        assertFalse(newMap.containsKey(0));
+        
+        assertFalse(newMap.containsKey(null));
+        
+        
+        newMap.put(null, 1);
+        
+        assertEquals(1, (int) newMap.remove(null));
+    }
+    
+    
+    @Test
+    public void putTwice() {
+        HashMap<Integer, Integer> newMap = new HashMap<Integer, Integer>();
+        
+        
+        newMap.put(0, 0);
+        newMap.put(null, 2);
+        assertEquals(0, (int) newMap.put(0, 1));
+        
+        assertEquals(1, (int) newMap.get(0));
+    }
+    
+    @Test
+    public void testClear() {
+        HashMap<Integer, Integer> newMap = new HashMap<Integer, Integer>();
+        
+        
+        newMap.put(0, 0);
+        newMap.put(null, 2);
+        
+        assertEquals(2, newMap.size());
+        
+        newMap.clear();
+        
+        assertEquals(0, newMap.size());
+    }
+    
+    
+    @Test
+    public void getCodeCoverage() {
+        HashMap<Integer, Integer> newMap = new HashMap<Integer, Integer>(1);
+        
+        
+        newMap.put(0, 0);
+    }
+    
+    
+
+
+}

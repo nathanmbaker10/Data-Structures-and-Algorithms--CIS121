@@ -1,0 +1,25 @@
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Provides access to Dijkstra's algorithm for a weighted graph.
+ */
+final public class Dijkstra {
+    private Dijkstra() {}
+
+    /**
+     * Computes the shortest path between two nodes in a weighted graph.
+     * Input graph is guaranteed to be valid and have no negative-weighted edges.
+     *
+     * @param g   the weighted graph to compute the shortest path on
+     * @param src the source node
+     * @param tgt the target node
+     * @return an empty list if there is no path from {@param src} to {@param tgt}, otherwise an
+     * ordered list of vertices in the shortest path from {@param src} to {@param tgt},
+     * with the first element being {@param src} and the last element being {@param tgt}.
+     */
+    public static List<Integer> getShortestPath(Graph g, int src, int tgt) {
+        Map<, Integer> parentPointers = new HashMap<Integer, Integer>
+    }
+}

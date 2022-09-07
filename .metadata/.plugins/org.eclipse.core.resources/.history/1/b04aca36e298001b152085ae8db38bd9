@@ -1,0 +1,12 @@
+import java.awt.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
+
+public class UnionFind {
+
+    
+    List<Integer> sets = new ArrayList<Set<Integer>>();
+    
+    Map<Set<Integer>, Integer> parentPointersMap = new HashMap<Set<Integer>, Integer>();
+}

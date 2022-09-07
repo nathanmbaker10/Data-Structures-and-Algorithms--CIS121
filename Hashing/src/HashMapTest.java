@@ -1,0 +1,173 @@
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import org.junit.Test;
+
+public class HashMapTest {
+    
+    //Below test is a collision
+    @Test
+    public void testNullandZeroKey() {
+        HashMap<Integer, Integer> newMap = new HashMap<Integer, Integer>();
+        
+        
+        newMap.put(0, 0);
+        newMap.put(null, 1);
+        
+        assertTrue(newMap.containsKey(0));
+        assertTrue(newMap.containsKey(null));
+        
+        assertEquals(1, (int) newMap.get(null));
+        assertEquals(0, (int) newMap.get(0));
+        assertEquals(1, (int) newMap.get(null));
+        
+        assertTrue(newMap.containsValue(1));
+        assertTrue(newMap.containsValue(0));
+        
+        
+        
+        Iterator<Map.Entry<Integer, Integer>> newMapIterator = newMap.entryIterator();
+        
+        assertTrue(newMapIterator.hasNext());
+        newMapIterator.next();
+        
+        assertTrue(newMapIterator.hasNext());
+        
+        newMapIterator.next();
+        
+        assertFalse(newMapIterator.hasNext());
+        
+        assertNull(newMap.get(2));
+    }
+    
+    
+    @Test
+    public void testRemove() {
+        HashMap<Integer, Integer> newMap = new HashMap<Integer, Integer>();
+        
+        
+        newMap.put(0, 0);
+        
+        
+        assertEquals(0, (int) newMap.remove(0));
+        
+        assertNull(newMap.remove(null));
+        
+        assertFalse(newMap.containsKey(0));
+        
+        assertFalse(newMap.containsKey(null));
+        
+        newMap.put(null, 0);
+        assertEquals(0, (int)newMap.put(null, 1));
+        
+        assertEquals(1, (int) newMap.remove(null));
+    }
+    
+    
+    @Test
+    public void putTwice() {
+        HashMap<Integer, Integer> newMap = new HashMap<Integer, Integer>();
+        
+        
+        newMap.put(0, 0);
+        newMap.put(null, 2);
+        
+        Map.Entry<Integer, Integer> entryTester = new HashMap.Entry<Integer, Integer>(0, 0, null);
+        Map.Entry<Integer, Integer> entryTester2 = new HashMap.Entry<Integer, Integer>(0, 3, null);
+        
+        Integer putResult = newMap.put(0, 1);
+        
+        entryTester2.setValue(putResult);
+        
+        assertEquals(0, (int) putResult);
+        assertEquals(1, (int) newMap.get(0));
+        boolean equals1 = entryTester.equals(entryTester2);
+        assertTrue(equals1);
+        boolean equals2 = entryTester.equals(entryTester);
+        assertTrue(equals2);
+        assertFalse(entryTester.equals(null));
+        assertFalse(entryTester.equals(this));
+
+
+        entryTester.setValue(6);
+        
+        assertFalse(entryTester.equals(entryTester2));
+        
+    }
+    
+    @Test
+    public void testClear() {
+        HashMap<Integer, Integer> newMap = new HashMap<Integer, Integer>();
+        
+        
+        newMap.put(0, 0);
+        newMap.put(null, 2);
+        
+        assertEquals(2, newMap.size());
+        
+        newMap.clear();
+        
+        assertEquals(0, newMap.size());
+    }
+    
+    
+    @Test
+    public void testResize() {
+        HashMap<Integer, Integer> newMap = new HashMap<Integer, Integer>(1);
+        
+        
+        newMap.put(0, 0);
+        assertEquals(1, newMap.size());
+        
+        assertTrue(newMap.containsKey(0));
+        assertTrue(newMap.containsValue(0));
+        
+        assertEquals(0, (int) newMap.get(0));
+    }
+    
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testBadConstructorInput() {
+        HashMap<Integer, Integer> newMap = new HashMap<Integer, Integer>(-11);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testBadConstructorInput2() {
+        HashMap<Integer, Integer> newMap = new HashMap<Integer, Integer>(10, -1);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testBadConstructorInput3() {
+        HashMap<Integer, Integer> newMap = new HashMap<Integer, Integer>((1 << 30) + 1, -1);
+    }
+    
+    
+    @Test
+    public void testResize2() {
+        HashMap<Integer, Integer> newMap = new HashMap<Integer, Integer>(4);
+        
+        newMap.put(1, 1);
+        newMap.put(2, 1);
+        newMap.put(3, 1);
+        newMap.put(4, 1);
+        
+        
+        assertEquals(4, newMap.size());
+        
+        assertTrue(newMap.containsKey(2));
+        
+        assertTrue(newMap.containsKey(1));
+        assertTrue(newMap.containsKey(3));
+        assertTrue(newMap.containsKey(4));
+    }
+    
+    
+
+
+}

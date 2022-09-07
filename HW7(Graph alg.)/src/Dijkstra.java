@@ -1,0 +1,96 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.junit.runners.ParentRunner;
+
+/**
+ * Provides access to Dijkstra's algorithm for a weighted graph.
+ */
+final public class Dijkstra {
+    private Dijkstra() {}
+
+    /**
+     * Computes the shortest path between two nodes in a weighted graph.
+     * Input graph is guaranteed to be valid and have no negative-weighted edges.
+     *
+     * @param g   the weighted graph to compute the shortest path on
+     * @param src the source node
+     * @param tgt the target node
+     * @return an empty list if there is no path from {@param src} to {@param tgt}, otherwise an
+     * ordered list of vertices in the shortest path from {@param src} to {@param tgt},
+     * with the first element being {@param src} and the last element being {@param tgt}.
+     */
+    public static List<Integer> getShortestPath(Graph g, int src, int tgt) {
+        Map<Integer, Integer> parentPointers = new HashMap<Integer, Integer>();
+        
+        Map<Integer, Integer> distanceFromSource = new HashMap<Integer, Integer>();
+        
+        BinaryMinHeap<Integer, Integer> Q = new BinaryMinHeapImpl<Integer, Integer>();
+        
+        Set<Integer> visitedSet = new HashSet<Integer>();
+        
+        
+        
+        for (int i = 0; i < g.getSize(); i++) {
+            distanceFromSource.put(i, Integer.MAX_VALUE);
+            parentPointers.put(i, null);
+            Q.add(Integer.MAX_VALUE, i);
+        }
+            
+        distanceFromSource.put(src, 0);
+        
+        while (Q.size() != 0) {
+            int uDistance = Q.peek().key;
+            int u = Q.extractMin().value;
+            
+            Set<Integer> uNeighbors = g.outNeighbors(u);
+            
+            Iterator<Integer> neighborIterators = uNeighbors.iterator();
+            
+            
+            while (neighborIterators.hasNext()) {
+                int currentNeighbor = neighborIterators.next();
+                
+                int edgeWeight = g.getWeight(u, currentNeighbor);
+                
+                if (distanceFromSource.get(currentNeighbor) > distanceFromSource.get(u) + edgeWeight) {
+                    Q.decreaseKey(currentNeighbor, distanceFromSource.get(u)+ edgeWeight);
+                    distanceFromSource.put(currentNeighbor, distanceFromSource.get(u)+ edgeWeight);
+                    
+                    
+                    parentPointers.put(currentNeighbor, u);
+                }
+            }
+        }
+        
+        return getShortestList(parentPointers, tgt);
+        
+        
+        
+        
+        
+        
+    }
+    
+    
+    public static List<Integer> getShortestList(Map<Integer, Integer> parentMap, int tgt) {
+        List<Integer> output = new ArrayList<Integer>();
+        Integer currentParent;
+        if (parentMap.get(tgt) != null) {
+            
+            output.add(0, tgt);
+            currentParent = parentMap.get(tgt);
+            while (currentParent != null) {
+                output.add(0, currentParent);
+                currentParent = parentMap.get(currentParent);
+            }
+        }
+        return output;
+        
+    }
+}
